@@ -1,0 +1,20 @@
+v3.0.x - YYYY-MMM-DD (To be released)
+-------------------------------------
+
+ - Asorted fixies on libmodsecurity autoconf.
+   [Issue #51 - @airween]
+ - Fix: avoids crash if UNIQUE_ID is not set
+   [Issue #46 - @Goron1606, @victorhora, @zimmerle]
+ - Adds make install to the build system
+   [Issue #36 - @zimmerle, @ROBERT-MCDOWELL]
+ - Uses mod_unique if available
+   [Issue #42 - @zimmerle, @victorhora, @Goron1606]
+ - Fix duplicate HTTP protocol strings
+   [Issue #21 - @victorhora]
+
+
+v0.0.9-beta1 - 2017-Dec-22
+--------------------------
+
+ - First version of ModSecurity-apache connector
+

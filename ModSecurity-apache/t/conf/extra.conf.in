@@ -1,0 +1,63 @@
+
+
+CoreDumpDirectory /tmp/
+
+Include @ServerRoot@/.././t/conf/modules.conf
+
+LoadModule security3_module "@ServerRoot@/.././src/.libs/mod_security3.so"
+
+
+# Lets make sure that the engine is on.
+modsecurity_rules 'SecRuleEngine On'
+
+# Debug logs
+modsecurity_rules 'SecDebugLog @ServerRoot@/logs/debug_logs.txt'
+modsecurity_rules 'SecDebugLogLevel 9'
+
+
+<Directory "@ServerRoot@/htdocs/block-evil-1">
+    modsecurity_rules 'SecRule REQUEST_URI "evil" "phase:1,id:111,log,status:403,block,deny"'
+</Directory>
+
+<Directory "@ServerRoot@/htdocs/block-evil-2">
+    modsecurity_rules 'SecRequestBodyAccess On'
+    modsecurity_rules 'SecRule ARGS "evil" "phase:2,id:112,log,status:403,block,deny"'
+</Directory>
+
+<Directory "@ServerRoot@/htdocs/block-evil-3">
+    modsecurity_rules 'SecRule ARGS "evil" "phase:3,id:113,log,status:403,block,deny"'
+</Directory>
+
+<Directory "@ServerRoot@/htdocs/block-evil-4">
+    modsecurity_rules 'SecResponseBodyAccess On'
+    modsecurity_rules 'SecRule ARGS "evil" "phase:4,id:114,log,status:403,block,deny"'
+</Directory>
+
+<Directory "@ServerRoot@/htdocs/block-evil-5">
+    modsecurity_rules 'SecRule ARGS "evil" "phase:5,id:115,log,status:403,block,deny"'
+</Directory>
+
+
+
+<Location "/block-evil-1-loc">
+    modsecurity_rules 'SecRule REQUEST_URI "evil" "phase:1,id:111,log,status:402,block,deny"'
+</Location>
+
+<Location "/block-evil-2-loc">
+    modsecurity_rules 'SecRequestBodyAccess On'
+    modsecurity_rules 'SecRule ARGS "evil" "phase:2,id:112,log,status:402,block,deny"'
+</Location>
+
+<Location "/block-evil-3-loc">
+    modsecurity_rules 'SecRule ARGS "evil" "phase:3,id:113,log,status:402,block,deny"'
+</Location>
+
+<Location "/block-evil-4-loc">
+    modsecurity_rules 'SecResponseBodyAccess On'
+    modsecurity_rules 'SecRule ARGS "evil" "phase:4,id:1134,log,status:402,block,deny"'
+</Location>
+
+<Location "/block-evil-5-loc">
+    modsecurity_rules 'SecRule ARGS "evil" "phase:5,id:114,log,status:402,block,deny"'
+</Location>
+
